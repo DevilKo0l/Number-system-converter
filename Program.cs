@@ -10,6 +10,28 @@ namespace Number_system_converter
     {
         static void Main(string[] args)
         {
+
+
+            
+            
+        }
+
+        static public string DecimalToAnySystem(int numDecimal, int systembase)
+        {
+            int remainder;            
+            string binary = "";
+            
+
+            while(numDecimal>0)
+            {
+                remainder = numDecimal % systembase;
+                numDecimal /= systembase;
+                
+
+                binary = remainder.ToString() + binary;
+            }
+
+            return binary;
         }
     }
 }
