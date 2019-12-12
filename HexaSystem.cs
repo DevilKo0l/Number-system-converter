@@ -8,5 +8,36 @@ namespace Number_system_converter
 {
     class HexaSystem
     {
+        protected string hexa { get; set; }
+        protected int hexaBase { get; set; }
+
+        public HexaSystem(string newHexa)
+        {
+            hexa = newHexa;
+            hexaBase = 16;
+        }
+
+        public int HexaToDecimal()
+        {
+            int result = 0;
+            char[] hexArray = this.hexa.ToCharArray();
+            Array.Reverse(hexArray);
+            for (int i = 0; i < hexArray.Length; i++)
+            {
+                if (char.IsLetter(hexArray[i]))
+                {
+                    result += ((int)hexArray[i] - 55)*(16^i);
+                }
+                else
+                {
+                    result += hexArray[i] * (16^i);
+                }
+                
+            }
+
+            return result;
+        }
+
+
     }
 }
