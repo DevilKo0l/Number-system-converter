@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Number_system_converter
 {
-    class HexaSystem
+    class HexaSystem : INumericSystem
     {
         protected string hexa { get; set; }
         protected int hexaBase { get; set; }
@@ -17,7 +17,7 @@ namespace Number_system_converter
             hexaBase = 16;
         }
 
-        public int HexaToDecimal()
+        public string ToDecimal()
         {
             int result = 0;
             char[] hexArray = this.hexa.ToCharArray();
@@ -35,9 +35,23 @@ namespace Number_system_converter
                 
             }
 
-            return result;
+            return result.ToString();
         }
 
+        public string ToOcta()
+        {
+            return "ss";
+        }
+
+        public string ToBinary()
+        {
+            return "ddd";
+        }
+
+        public string ToHex()
+        {
+            return "ddd";
+        }
 
     }
 }

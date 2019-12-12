@@ -22,12 +22,14 @@ namespace Number_system_converter
             //OctaSystem firstocta = new OctaSystem(0430);
             //Console.WriteLine(firstocta.OctaToDecimal());
 
-            HexaSystem textHexa = new HexaSystem("1A2C");
-            Console.WriteLine(textHexa.HexaToDecimal());
+            DecimalSystem firstdec = new DecimalSystem("123456");
+            firstdec.show();
 
 
             //Console.WriteLine(1/10);
         }
+
+
 
         static public string WhatBase(string numInput)
         {

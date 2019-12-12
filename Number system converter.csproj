@@ -46,6 +46,7 @@
     <Compile Include="BinarySystem.cs" />
     <Compile Include="DecimalSystem.cs" />
     <Compile Include="HexaSystem.cs" />
+    <Compile Include="INumericSystem.cs" />
     <Compile Include="OctaSystem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

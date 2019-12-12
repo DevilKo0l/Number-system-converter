@@ -6,29 +6,45 @@ using System.Threading.Tasks;
 
 namespace Number_system_converter
 {
-    class OctaSystem
+    class OctaSystem : INumericSystem
     {
-        protected int octa { get; private set; }
+        protected string octa { get; private set; }
         protected int octaBase {get; private set;}
 
-        public OctaSystem(int newOcta)
+        public OctaSystem(string newOcta)
         {
             octa = newOcta;
             octaBase = 8;
         }
 
-        public int OctaToDecimal()
+        public string ToDecimal()
         {
             int result = 0;
             int i = 0;
+            int octaNum = int.Parse(this.octa);
             do
             {
-                int rem = this.octa % 10;
+                int rem = octaNum % 10;
                 result = result + rem * (int)Math.Pow(8, i);
                 i++;
-                this.octa = this.octa / 10;
-            } while (this.octa > 0);
-            return result;
+                octaNum = octaNum / 10;
+            } while (octaNum > 0);
+            return result.ToString();
+        }
+
+        public string ToOcta()
+        {
+            return "dddd";
+        }
+
+        public string ToBinary()
+        {
+            return "dddd";
+        }
+
+        public string ToHex()
+        {
+            return "dddd";
         }
     }
 }

@@ -7,30 +7,57 @@ using System.Threading.Tasks;
 
 namespace Number_system_converter
 {
-    class BinarySystem
+    class BinarySystem : INumericSystem
     {
-        protected int binary { get; private set; }
+        protected string binary { get; private set; }
         protected int binaryBase { get; private set; }
 
-        public BinarySystem(int newBinary)
+        public BinarySystem(string newBinary)
         {
             binary = newBinary;
             binaryBase = 2;
         }
 
-        public int binaryToDecimal()
+        public string ToDecimal()
         {
             
             int result = 0;
             int i = 0;
+            int binaryNum = int.Parse(this.binary);
             do
             {
-                int rem = this.binary % 10;
+                int rem = binaryNum % 10;
                 result = result + rem * (int)Math.Pow(2,i);
                 i++;
-                this.binary = this.binary / 10;
-            } while (this.binary > 0);
-            return result;  
+                binaryNum = binaryNum / 10;
+            } while (binaryNum > 0);
+            return result.ToString();  
+        }
+
+        public string ToOcta()
+        {
+            return "dddd";
+        }
+
+        public string ToBinary()
+        {
+            return "dddd";
+        }
+
+        public string ToHex()
+        {
+            //int result = 0;
+            //int i = 0;
+            //do
+            //{
+            //    int rem = this.binary % 10;
+            //    result = result + rem * (int)Math.Pow(2, i);
+            //    i++;
+            //    this.binary = this.binary / 10;
+            //} while (this.binary > 0);
+            //return result;
+
+            return "sss";
         }
     }
 }
