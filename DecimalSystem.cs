@@ -1,20 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Number_system_converter
 {
     class DecimalSystem : INumericSystem
     {
-        protected string decima { get; private set; }
-        protected int decimalBase { get; private set; }
+        protected string decima { get; private set; }        
 
         public DecimalSystem(string newDecimal)
         {
             decima = newDecimal;
-            decimalBase = 10;
+            
         }
         public string ToDecimal()
         {
@@ -24,71 +19,60 @@ namespace Number_system_converter
 
         public string ToOcta()
         {
-            int remainder;
-            string octa = "";
-            int decimalNum = int.Parse(this.decima);
-
-            while (decimalNum > 0)
-            {
-                remainder = decimalNum % 8;
-                decimalNum /= 8;
-
-
-                octa = remainder.ToString() + octa;
-            }
-
-            return octa;
+            string toOcta = DecimalToAnySystem(8);
+            return '0' + toOcta;
         }
 
         public string ToBinary()
-        {
-            int remainder;
-            string binary = "";
-            int decimalNum = int.Parse(this.decima);
-
-            while (decimalNum > 0)
-            {
-                remainder = decimalNum % 2;
-                decimalNum /= 2;
-
-
-                binary = remainder.ToString() + binary;
-            }
-
-            return binary;
+        {            
+            string toBinary = DecimalToAnySystem(2);
+            return toBinary;
         }
 
         public string ToHex()
+        {            
+            string toHex = DecimalToAnySystem(16);
+            return "0x"+toHex;
+        }
+
+        public string DecimalToAnySystem(int systembase)
         {
             int remainder;
-            string hexa = "";
+            string result = "";
             int decimalNum = int.Parse(this.decima);
 
             while (decimalNum > 0)
             {
-                
-                remainder = decimalNum % 16;
-                if (remainder<10)
+
+                remainder = decimalNum % systembase;                
+                decimalNum /= systembase;
+                if (systembase == 16)
                 {
-                    hexa = remainder + hexa;
+                    if (remainder<10)
+                    {
+                        result = remainder + result;
+                    }
+                    else
+                    {
+                        result = (char)(55 + remainder) + result;
+                    }
                 }
                 else
                 {
-                    hexa = (char)(remainder+65) + hexa;
+                    result = remainder + result;
                 }
-                decimalNum /= 16;
                 
             }
 
-            return hexa;
+            return result;
         }
 
         public void show()
         {
-            Console.WriteLine(ToBinary());
-            Console.WriteLine(ToHex());
-            Console.WriteLine(ToOcta());
-            Console.WriteLine(ToDecimal());
+            Console.WriteLine("In decimal: "+ToDecimal());
+            Console.WriteLine("In binary: "+ToBinary());
+            Console.WriteLine("In octal: "+ToOcta());
+            Console.WriteLine("In hex: "+ToHex());   
         }
     }
 }

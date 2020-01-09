@@ -1,36 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Number_system_converter
 {
     class HexaSystem : INumericSystem
     {
         protected string hexa { get; set; }
-        protected int hexaBase { get; set; }
+        
 
         public HexaSystem(string newHexa)
         {
-            hexa = newHexa;
-            hexaBase = 16;
+            hexa = newHexa;           
         }
 
         public string ToDecimal()
         {
             int result = 0;
-            char[] hexArray = this.hexa.ToCharArray();
-            Array.Reverse(hexArray);
-            for (int i = 0; i < hexArray.Length; i++)
+            char[] hexArray = this.hexa.ToCharArray();            
+            
+            for (int i = 2; i <hexArray.Length; i++)
             {
+                int power = (hexArray.Length-1) - i;
                 if (char.IsLetter(hexArray[i]))
                 {
-                    result += ((int)hexArray[i] - 55)*(16^i);
+                    result += ((int)hexArray[i] - 55)*((int)Math.Pow(16,power));
                 }
                 else
                 {
-                    result += hexArray[i] * (16^i);
+                    result += ((int)Char.GetNumericValue(hexArray[i]) * ((int)Math.Pow(16, power)));
                 }
                 
             }
@@ -40,17 +36,29 @@ namespace Number_system_converter
 
         public string ToOcta()
         {
-            return "ss";
+            var octaToDecimal = ToDecimal();
+            var convert = new DecimalSystem(octaToDecimal);
+            return convert.ToOcta();
         }
 
         public string ToBinary()
         {
-            return "ddd";
+            var octaToDecimal = ToDecimal();
+            var convert = new DecimalSystem(octaToDecimal);
+            return convert.ToOcta();
         }
 
         public string ToHex()
         {
-            return "ddd";
+            return this.hexa;
+        }
+
+        public void show()
+        {
+            Console.WriteLine("In decimal: " + ToDecimal());
+            Console.WriteLine("In binary: " + ToBinary());
+            Console.WriteLine("In octal: " + ToOcta());
+            Console.WriteLine("In hex: " + ToHex());
         }
 
     }

@@ -1,20 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Number_system_converter
 {
     class OctaSystem : INumericSystem
     {
-        protected string octa { get; private set; }
-        protected int octaBase {get; private set;}
+        protected string octa { get; private set; }       
 
         public OctaSystem(string newOcta)
         {
-            octa = newOcta;
-            octaBase = 8;
+            octa = newOcta;            
         }
 
         public string ToDecimal()
@@ -34,17 +28,29 @@ namespace Number_system_converter
 
         public string ToOcta()
         {
-            return "dddd";
+            return this.octa;
         }
 
         public string ToBinary()
         {
-            return "dddd";
+            var octaToDecima = ToDecimal();
+            var converter = new DecimalSystem(octaToDecima);
+            return converter.ToBinary();
         }
 
         public string ToHex()
         {
-            return "dddd";
+            var octaToDecima = ToDecimal();
+            var converter = new DecimalSystem(octaToDecima);
+            return converter.ToHex();
+        }
+
+        public void show()
+        {
+            Console.WriteLine("In decimal: " + ToDecimal());
+            Console.WriteLine("In binary: " + ToBinary());
+            Console.WriteLine("In octal: " + ToOcta());
+            Console.WriteLine("In hex: " + ToHex());
         }
     }
 }

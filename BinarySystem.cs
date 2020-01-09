@@ -1,21 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace Number_system_converter
 {
     class BinarySystem : INumericSystem
     {
-        protected string binary { get; private set; }
-        protected int binaryBase { get; private set; }
+        protected string binary { get; private set; }        
 
         public BinarySystem(string newBinary)
         {
             binary = newBinary;
-            binaryBase = 2;
+            
         }
 
         public string ToDecimal()
@@ -36,28 +31,31 @@ namespace Number_system_converter
 
         public string ToOcta()
         {
-            return "dddd";
+            var binaryToDecimal = ToDecimal();
+            var convert = new DecimalSystem(binaryToDecimal);
+            return convert.ToOcta();
+            
         }
 
         public string ToBinary()
         {
-            return "dddd";
+            return this.binary;
         }
 
         public string ToHex()
         {
-            //int result = 0;
-            //int i = 0;
-            //do
-            //{
-            //    int rem = this.binary % 10;
-            //    result = result + rem * (int)Math.Pow(2, i);
-            //    i++;
-            //    this.binary = this.binary / 10;
-            //} while (this.binary > 0);
-            //return result;
 
-            return "sss";
+            var binaryToDecimal = ToDecimal();
+            var convert = new DecimalSystem(binaryToDecimal);
+            return convert.ToHex();            
+        }
+
+        public void show()
+        {
+            Console.WriteLine("In decimal: " + ToDecimal());
+            Console.WriteLine("In binary: " + ToBinary());
+            Console.WriteLine("In octal: " + ToOcta());
+            Console.WriteLine("In hex: " + ToHex());
         }
     }
 }
