@@ -11,34 +11,38 @@ namespace Number_system_converter
     {
         static void Main(string[] args)
         {
-            ////DecimalSystem newDec = new DecimalSystem("8271");
-            ////BinarySystem newBinary = new BinarySystem("10101010");
-            ////OctaSystem newOcta = new OctaSystem("0123");
+            DecimalSystem newDec = new DecimalSystem("8271");
+            BinarySystem newBinary = new BinarySystem("10101010");
+            OctaSystem newOcta = new OctaSystem("0123");
 
-            //bool flag = true;
-            //while (flag)
-            //{
-            //    Console.Write("Please enter a number in any base: ");
-            //    string input = Console.ReadLine();
-            //    Show(input);
+            bool flag = true;
+            while (flag)
+            {
+                Console.Write("Please enter a number in any base: ");
+                string input = Console.ReadLine();
+                Show(input);
 
-            //    Console.Write("Do you want to continue(y/n): ");
-            //    string cont = Console.ReadLine();
-            //    if (askUserForContinue(cont))
-            //    {
-            //        continue;
-            //    }
-            //    else
-            //    {
-            //        flag = false;
-            //    }
-            //}
+                Console.Write("Do you want to continue(y/n): ");
+                string cont = Console.ReadLine();
+                if (askUserForContinue(cont))
+                {
+                    Console.Clear();
+                    continue;
+                }
+                else
+                {
+                    flag = false;
+                }
+            }
 
-            //var floatNumber = 12.5532;
-            //var x = floatNumber - Math.Floor(floatNumber);
-            //Console.WriteLine(x);
+            var floatNumber = 12.5532;
+            var x = floatNumber - Math.Floor(floatNumber);
+            Console.WriteLine(x);
 
-            Console.WriteLine(DecimalFactionToAnySystem(2,0.372));
+            Console.WriteLine(DecimalFactionToAnySystem(2, 0.231));
+
+
+
 
 
 
@@ -50,26 +54,30 @@ namespace Number_system_converter
             //double numAfterDot = decima - Math.Floor(decima);
             //decima = decima * systembase;
             string result = "";
-
             double nDecima = decima;
+            double fractionalPart = decima - (long)decima;
 
             while (nDecima > 0)
             {
                 nDecima = nDecima * systembase;
-                
-                if (Math.Floor(nDecima)==0)
-                {
-                    result += "0";
-                }
-                else
-                {
-                    result += "1";
-                }
+
+                //if (Math.Floor(nDecima) == 0)
+                //{
+                //    result += "0";
+                //}
+                //else
+                //{
+                //    result += "1";
+                //}
+                result += (long)nDecima;
                 nDecima = nDecima - Math.Floor(nDecima);
+
             }
 
             return result;
         }
+
+        
 
         static bool askUserForContinue(string input)
         {
@@ -124,20 +132,36 @@ namespace Number_system_converter
 
         static public bool isNumeric(string inputNumber)
         {
-            return int.TryParse(inputNumber, out int num);
+            return double.TryParse(inputNumber, out double num);
         }
 
         static public bool IsHex(string numInput)
-        {
-            //start with 0x or 0X, and @"\A\b^(0[xX])?[0-9a-fA-F]+\b\Z"
+        {            
             return Regex.IsMatch(numInput, @"\A\b^(0[xX])?[0-9a-fA-F]+\b\Z");
         }
 
 
         static public bool IsOctal(string numInput)
         {
-            //return Regex.IsMatch(numInput, @"\A\b^([0-7])+\b\Z");
-            return Regex.IsMatch(numInput, @"^0[1-7][0-7]{0,6}$");
+
+            //return Regex.IsMatch(numInput, @"^0[1-7][0-7]{0,6}$");
+            bool checkOctal = true;
+            if (numInput[0]!='0')
+            {
+                checkOctal = false;
+            }
+            else
+            {
+                foreach (var item in numInput)
+                {
+                    if (int.Parse(item.ToString())>7)
+                    {
+                        checkOctal = false;
+                        break;
+                    }
+                }
+            }
+            return checkOctal;
 
         }
         static public bool IsBinary(string numInput)
@@ -155,6 +179,11 @@ namespace Number_system_converter
             return checkBinary;
         }
 
+        static public bool isFractional(string numInput)
+        {
+            return true;
+
+        }
         static void Show(string input)
         {
             INumericSystem numBase = WhatBase(input);

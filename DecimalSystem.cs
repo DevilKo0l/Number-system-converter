@@ -38,34 +38,43 @@ namespace Number_system_converter
         public string DecimalToAnySystem(int systembase)
         {
             int remainder;
-            string result = "";
-            int decimalNum = int.Parse(this.decima);
-
-            while (decimalNum > 0)
+            string result = "";            
+            int intPart = (int)double.Parse(this.decima);
+            double frationalPart = double.Parse(this.decima)-intPart;
+            
+            
+            
+            while (intPart > 0)
             {
+                remainder = intPart % systembase;
+                intPart /= systembase;
 
-                remainder = decimalNum % systembase;                
-                decimalNum /= systembase;
+
                 if (systembase == 16)
                 {
-                    if (remainder<10)
-                    {
-                        result = remainder + result;
-                    }
-                    else
-                    {
-                        result = (char)(55 + remainder) + result;
-                    }
+                    _ = (remainder < 10) ? result = remainder + result : result = (char)(55 + remainder) + result;
                 }
                 else
                 {
                     result = remainder + result;
                 }
-                
+
+                if (frationalPart != 0)
+                {
+                    result += '.';
+                    while (frationalPart>0)
+                    {
+                        frationalPart = frationalPart * systembase;
+                        result += (int)frationalPart;
+                        frationalPart = frationalPart - Math.Floor(frationalPart);
+                    }
+
+                }
+
             }
 
             return result;
         }
         
     }
-}
+} 
