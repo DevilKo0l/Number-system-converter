@@ -11,16 +11,81 @@ namespace Number_system_converter
     {
         static void Main(string[] args)
         {
-            //DecimalSystem newDec = new DecimalSystem("8271");
-            //BinarySystem newBinary = new BinarySystem("10101010");
-            //OctaSystem newOcta = new OctaSystem("0123");
+            ////DecimalSystem newDec = new DecimalSystem("8271");
+            ////BinarySystem newBinary = new BinarySystem("10101010");
+            ////OctaSystem newOcta = new OctaSystem("0123");
 
-            Show("12346");
+            //bool flag = true;
+            //while (flag)
+            //{
+            //    Console.Write("Please enter a number in any base: ");
+            //    string input = Console.ReadLine();
+            //    Show(input);
 
-            
+            //    Console.Write("Do you want to continue(y/n): ");
+            //    string cont = Console.ReadLine();
+            //    if (askUserForContinue(cont))
+            //    {
+            //        continue;
+            //    }
+            //    else
+            //    {
+            //        flag = false;
+            //    }
+            //}
+
+            //var floatNumber = 12.5532;
+            //var x = floatNumber - Math.Floor(floatNumber);
+            //Console.WriteLine(x);
+
+            Console.WriteLine(DecimalFactionToAnySystem(2,0.372));
+
+
 
         }
 
+        static public string DecimalFactionToAnySystem(int systembase, double decima)
+        {
+
+            //double numAfterDot = decima - Math.Floor(decima);
+            //decima = decima * systembase;
+            string result = "";
+
+            double nDecima = decima;
+
+            while (nDecima > 0)
+            {
+                nDecima = nDecima * systembase;
+                
+                if (Math.Floor(nDecima)==0)
+                {
+                    result += "0";
+                }
+                else
+                {
+                    result += "1";
+                }
+                nDecima = nDecima - Math.Floor(nDecima);
+            }
+
+            return result;
+        }
+
+        static bool askUserForContinue(string input)
+        {
+            if (input.ToLower() == "y")
+            {
+                return true;
+            }
+            else if (input.ToLower()=="n")
+            {
+                return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
 
         static INumericSystem WhatBase(string numInput)
@@ -84,6 +149,7 @@ namespace Number_system_converter
                 {
                     checkBinary = false;
                     break;
+
                 }
             }
             return checkBinary;
@@ -91,7 +157,7 @@ namespace Number_system_converter
 
         static void Show(string input)
         {
-            var numBase = WhatBase(input);
+            INumericSystem numBase = WhatBase(input);
             Console.WriteLine("In decimal: " + numBase.ToDecimal());
             Console.WriteLine("In binary: " + numBase.ToBinary());
             Console.WriteLine("In octal: " + numBase.ToOcta());

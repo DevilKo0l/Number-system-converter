@@ -49,13 +49,5 @@ namespace Number_system_converter
             var convert = new DecimalSystem(binaryToDecimal);
             return convert.ToHex();            
         }
-
-        public void show()
-        {
-            Console.WriteLine("In decimal: " + ToDecimal());
-            Console.WriteLine("In binary: " + ToBinary());
-            Console.WriteLine("In octal: " + ToOcta());
-            Console.WriteLine("In hex: " + ToHex());
-        }
     }
 }

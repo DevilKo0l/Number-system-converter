@@ -45,12 +45,5 @@ namespace Number_system_converter
             return converter.ToHex();
         }
 
-        public void show()
-        {
-            Console.WriteLine("In decimal: " + ToDecimal());
-            Console.WriteLine("In binary: " + ToBinary());
-            Console.WriteLine("In octal: " + ToOcta());
-            Console.WriteLine("In hex: " + ToHex());
-        }
     }
 }
