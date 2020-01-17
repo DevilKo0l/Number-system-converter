@@ -44,8 +44,7 @@ namespace Number_system_converter
             int remainder;
             string result = "";            
             int intPart = (int)double.Parse(this.decima);
-            double frationalPart = double.Parse(this.decima)-intPart;           
-            
+            double frationalPart = double.Parse(this.decima)-intPart;   
             
             while (intPart > 0)
             {
