@@ -13,17 +13,9 @@ namespace Number_system_converter
 
         public string ToDecimal()
         {
-            int result = 0;
-            int i = 0;
-            int octaNum = int.Parse(this.octa);
-            do
-            {
-                int rem = octaNum % 10;
-                result = result + rem * (int)Math.Pow(8, i);
-                i++;
-                octaNum = octaNum / 10;
-            } while (octaNum > 0);
-            return result.ToString();
+            var convert = new DecimalSystem();
+            return convert.AnySystemToDecimal(this.octa, 8);
+
         }
 
         public string ToOcta()
@@ -33,16 +25,16 @@ namespace Number_system_converter
 
         public string ToBinary()
         {
-            var octaToDecima = ToDecimal();
-            var converter = new DecimalSystem(octaToDecima);
-            return converter.ToBinary();
+            var octaToDecimal = ToDecimal();
+            var convert = new DecimalSystem(octaToDecimal);
+            return convert.ToBinary();
         }
 
         public string ToHex()
         {
-            var octaToDecima = ToDecimal();
-            var converter = new DecimalSystem(octaToDecima);
-            return converter.ToHex();
+            var octaToDecimal = ToDecimal();
+            var convert = new DecimalSystem(octaToDecimal);
+            return convert.ToHex();
         }
 
     }

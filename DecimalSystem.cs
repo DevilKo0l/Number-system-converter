@@ -11,6 +11,10 @@ namespace Number_system_converter
             decima = newDecimal;
             
         }
+        public DecimalSystem()
+        {
+
+        }
         public string ToDecimal()
         {
             return this.decima;
@@ -40,8 +44,7 @@ namespace Number_system_converter
             int remainder;
             string result = "";            
             int intPart = (int)double.Parse(this.decima);
-            double frationalPart = double.Parse(this.decima)-intPart;
-            
+            double frationalPart = double.Parse(this.decima)-intPart;           
             
             
             while (intPart > 0)
@@ -62,7 +65,7 @@ namespace Number_system_converter
                 if (frationalPart != 0)
                 {
                     result += '.';
-                    while (frationalPart>0)
+                    while (frationalPart > 0)
                     {
                         frationalPart = frationalPart * systembase;
                         result += (int)frationalPart;
@@ -72,9 +75,38 @@ namespace Number_system_converter
                 }
 
             }
-
             return result;
         }
-        
+
+        public string AnySystemToDecimal(string number, int systemBase)
+        {
+            char[] digitArray = number.ToCharArray();
+            int digit;
+            int exponent = 0;
+            int result = 0;
+            
+            for (int i = digitArray.Length-1; i >-1; i--)
+            {
+                bool isDigit = int.TryParse(digitArray[i].ToString(), out digit);
+                if (isDigit==true)
+                {
+                    result += digit * (int)Math.Pow(systemBase, exponent);
+                }
+                else
+                {                    
+                    if (i==1)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        result += ((int)char.ToUpper(digitArray[i]) - 55) * ((int)Math.Pow(16, exponent));
+                    }
+                    
+                }
+                exponent++;
+            }
+            return result.ToString();
+        }
     }
 } 
