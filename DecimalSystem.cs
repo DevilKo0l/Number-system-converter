@@ -44,52 +44,60 @@ namespace Number_system_converter
             int remainder;
             string result = "";            
             int intPart = (int)double.Parse(this.decima);
-            double frationalPart = double.Parse(this.decima)-intPart;   
-            
-            while (intPart > 0)
+            double frationalPart = double.Parse(this.decima)-intPart;
+
+            if (intPart == 0)
             {
-                remainder = intPart % systembase;
-                intPart /= systembase;
+                result += "0";
+            }
+            else
+            {
+                while (intPart > 0)
+                {
+                    remainder = intPart % systembase;
+                    intPart /= systembase;
 
 
-                if (systembase == 16)
-                {
-                    _ = (remainder < 10) ? result = remainder + result : result = (char)(55 + remainder) + result;
-                }
-                else
-                {
-                    result = remainder + result;
-                }
-
-                if (frationalPart != 0)
-                {
-                    result += '.';
-                    while (frationalPart > 0)
+                    if (systembase == 16)
                     {
-                        frationalPart = frationalPart * systembase;
-                        result += (int)frationalPart;
-                        frationalPart = frationalPart - Math.Floor(frationalPart);
+                        _ = (remainder < 10) ? result = remainder + result : result = (char)(55 + remainder) + result;
                     }
-
+                    else
+                    {
+                        result = remainder + result;
+                    }
                 }
-
+            }
+            
+            if (frationalPart != 0)
+            {
+                result += '.';
+                while (frationalPart > 0)
+                {
+                    frationalPart = frationalPart * systembase;
+                    result += (int)frationalPart;
+                    frationalPart = frationalPart - Math.Floor(frationalPart);
+                }
             }
             return result;
         }
 
         public string AnySystemToDecimal(string number, int systemBase)
         {
-            char[] digitArray = number.ToCharArray();
-            int digit;
-            int exponent = 0;
-            int result = 0;
+            string[] splitNumber = number.Split('.');
+            char[] intPart = splitNumber[0].ToCharArray();            
             
-            for (int i = digitArray.Length-1; i >-1; i--)
+            int digit=0;
+            int exponent = 0;
+            double sum = 0;
+            string result = "";
+            
+            for (int i = intPart.Length-1; i >-1; i--)
             {
-                bool isDigit = int.TryParse(digitArray[i].ToString(), out digit);
+                bool isDigit = int.TryParse(intPart[i].ToString(), out digit);
                 if (isDigit==true)
                 {
-                    result += digit * (int)Math.Pow(systemBase, exponent);
+                    sum += digit * (int)Math.Pow(systemBase, exponent);
                 }
                 else
                 {                    
@@ -99,13 +107,43 @@ namespace Number_system_converter
                     }
                     else
                     {
-                        result += ((int)char.ToUpper(digitArray[i]) - 55) * ((int)Math.Pow(16, exponent));
+                        sum += ((int)char.ToUpper(intPart[i]) - 55) * ((int)Math.Pow(16, exponent));
                     }
                     
                 }
                 exponent++;
             }
-            return result.ToString();
+            
+            if (splitNumber.Length==1)
+            {
+                return sum.ToString();
+            }
+            else
+            {
+                exponent = -1;
+                double sumFraction = 0;
+                char[] fractionalPart = splitNumber[1].ToCharArray();
+                for (int i = 0; i < fractionalPart.Length; i++)
+                {
+                    bool isDigit = int.TryParse(fractionalPart[i].ToString(), out digit);
+                    if (isDigit == true)
+                    {
+                        sumFraction += digit * (int)Math.Pow(systemBase, exponent);
+                    }
+                    else
+                    {
+
+                        sumFraction += ((int)char.ToUpper(fractionalPart[i]) - 55) * Math.Pow(16, exponent);
+
+                    }
+                    exponent--;
+                }
+
+                sum += sumFraction;
+                result += sum;
+            }
+
+            return sum.ToString();
         }
     }
 } 
