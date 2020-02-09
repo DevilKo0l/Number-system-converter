@@ -41,7 +41,7 @@ namespace Number_system_converter
 
         public string DecimalToAnySystem(int systembase)
         {
-            int remainder;
+            double remainder;
             string result = "";            
             int intPart = (int)double.Parse(this.decima);
             double frationalPart = double.Parse(this.decima)-intPart;
@@ -75,8 +75,18 @@ namespace Number_system_converter
                 while (frationalPart > 0)
                 {
                     frationalPart = frationalPart * systembase;
-                    result += (int)frationalPart;
+                    
+                    if (systembase==16)
+                    {
+                        _ = ((int)frationalPart < 10) ? result += (int)frationalPart  : result += (char)(55 + (int)frationalPart) ;
+                    }
+                    else
+                    {
+                        result += (int)frationalPart;
+                    }                    
                     frationalPart = frationalPart - Math.Floor(frationalPart);
+
+
                 }
             }
             return result;

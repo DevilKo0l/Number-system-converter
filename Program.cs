@@ -6,33 +6,33 @@ namespace Number_system_converter
     {
         private static void Main(string[] args)
         {
-            //DecimalSystem newDec = new DecimalSystem("8271");
-            //BinarySystem newBinary = new BinarySystem("10101010");
-            //OctaSystem newOcta = new OctaSystem("0123");
-            //string ans;
-            //bool flag = true;
-            //while (flag)
-            //{
-            //    Console.Write("Please enter a number in any base: ");
-            //    ans = Console.ReadLine();
-            //    Show(ans);
-            //    do
-            //    {
-            //        Console.Write("Do you want to continue(y/n): ");
-            //        ans = Console.ReadLine();
-            //    } while (ans != "y" && ans != "n");
+            DecimalSystem newDec = new DecimalSystem("8271");
+            BinarySystem newBinary = new BinarySystem("10101010");
+            OctaSystem newOcta = new OctaSystem("0123");
+            string ans;
+            bool flag = true;
+            while (flag)
+            {
+                Console.Write("Please enter a number in any base: ");
+                ans = Console.ReadLine();
+                Show(ans);
+                do
+                {
+                    Console.Write("Do you want to continue(y/n): ");
+                    ans = Console.ReadLine();
+                } while (ans != "y" && ans != "n");
 
-            //    if (askUserForContinue(ans))
-            //    {
-            //        Console.Clear();
-            //        continue;
-            //    }
-            //    else
-            //    {
-            //        flag = false;
-            //    }
-            //}
-            //Console.WriteLine((int)'A');
+                if (askUserForContinue(ans))
+                {
+                    Console.Clear();
+                    continue;
+                }
+                else
+                {
+                    flag = false;
+                }
+            }
+            Console.WriteLine((int)'A');
         }
 
         private static bool askUserForContinue(string input)
@@ -44,15 +44,25 @@ namespace Number_system_converter
         private static INumericSystem WhatBase(string numInput)
         {
             //bool invalidBase = false;
-
-            if (isNumeric(numInput) == true)
+            string intPart;
+            int dotPosition = numInput.IndexOf('.');
+            if (dotPosition > 0)
             {
-                if (IsOctal(numInput) == true)
+                intPart = numInput.Substring(0, dotPosition);
+            }
+            else
+            {
+                intPart = numInput;
+            }
+
+            if (isNumeric(intPart) == true)
+            {
+                if (IsOctal(intPart) == true && intPart.Length > 1)
                 {
                     Console.WriteLine("Octa detected");
                     return new OctaSystem(numInput);
                 }
-                else if (IsBinary(numInput) == true)
+                else if (IsBinary(intPart) == true && intPart.Length > 1)
                 {
                     Console.WriteLine("binary detected");
                     return new BinarySystem(numInput);
@@ -68,6 +78,7 @@ namespace Number_system_converter
                 Console.WriteLine("hexa detected");
                 return new HexaSystem(correctHexa(numInput));
             }
+            //Console.WriteLine(isFraction("1235.5454"));
         }
 
         static public bool isNumeric(string inputNumber)
@@ -120,11 +131,6 @@ namespace Number_system_converter
                 }
             }
             return checkBinary;
-        }
-
-        static public bool isFractional(string numInput)
-        {
-            return true;
         }
 
         private static void Show(string input)
